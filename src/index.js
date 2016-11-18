@@ -119,16 +119,16 @@ const BAD_NEWS_URLS = [
 ];
 
 function debounce(func, wait) {
-	var timeout;
-	return function() {
-		var context = this;
-		var later = function() {
-			timeout = null;
-			func.apply(context);
-		};
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-	};
+  let timeout;
+  return function() {
+    const context = this;
+    const later = function() {
+      timeout = null;
+      func.apply(context);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
 };
 
 function createOverlay() {

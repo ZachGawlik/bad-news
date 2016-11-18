@@ -146,15 +146,19 @@ function createOverlay() {
 }
 
 const overlay = createOverlay();
+const blockedPosts = {}
 
 function tagBadNewsLinks() {
   BAD_NEWS_URLS.forEach(url => {
     document.querySelectorAll(
-      `.userContentWrapper a[href*="${url}"]`
+      `a[href*="${url}"]`
     ).forEach(link => {
       if (link.getElementsByTagName('img').length > 0) {
-        link.parentNode.appendChild(overlay);
-        link.className = 'post__thumbnail';
+        if (!blockedPosts[link.href]) {
+          blockedPosts[link.href] = true;
+          link.parentNode.appendChild(overlay.cloneNode(true));
+          link.className = 'post__thumbnail';
+        }
       } else {
         link.className = 'post__text'
       }
